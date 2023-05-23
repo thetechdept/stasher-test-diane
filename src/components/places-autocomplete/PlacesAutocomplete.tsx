@@ -1,29 +1,30 @@
 import { FC, useState, useEffect } from 'react'
-import {
-  AutoComplete,
-  Button,
-  Input,
-  Typography
-} from 'antd';
+import { AutoComplete, Button, Input, Typography } from 'antd'
 
-import { MdOutlinePlace, MdMyLocation } from "react-icons/md";
-import usePlacesAutocomplete from 'use-places-autocomplete';
-import { BaseOptionType } from 'rc-tree-select/lib/TreeSelect';
-import { SizeType } from 'antd/es/config-provider/SizeContext';
+import { MdOutlinePlace, MdMyLocation } from 'react-icons/md'
+import usePlacesAutocomplete from 'use-places-autocomplete'
+import { BaseOptionType } from 'rc-tree-select/lib/TreeSelect'
+import { SizeType } from 'antd/es/config-provider/SizeContext'
 
 interface PlacesAutcompleteProps {
   loaded: boolean
   onSelect: (value: string) => void
   size: SizeType
+  address?: string
 }
 
 const { Text } = Typography
 
-const PlacesAutocomplete: FC<PlacesAutcompleteProps> = ({ onSelect, loaded, size }) => {
+const PlacesAutocomplete: FC<PlacesAutcompleteProps> = ({
+  onSelect,
+  loaded,
+  size,
+  address,
+}) => {
   const {
     setValue,
     suggestions: { data },
-    clearSuggestions
+    clearSuggestions,
   } = usePlacesAutocomplete({ debounce: 300, initOnMount: loaded })
 
   const [options, setOptions] = useState<BaseOptionType[]>([])
@@ -38,14 +39,17 @@ const PlacesAutocomplete: FC<PlacesAutcompleteProps> = ({ onSelect, loaded, size
 
   useEffect(() => {
     if (data) {
-      let items = data.map(item => ({
+      let items = data.map((item) => ({
         value: item.description,
         label: (
           <>
             <Text strong>{item.structured_formatting.main_text}</Text>
-            <Text style={{ fontSize: 12 }}> {item.structured_formatting.secondary_text}</Text>
+            <Text style={{ fontSize: 12 }}>
+              {' '}
+              {item.structured_formatting.secondary_text}
+            </Text>
           </>
-        )
+        ),
       }))
       setOptions(items)
     }
@@ -60,8 +64,11 @@ const PlacesAutocomplete: FC<PlacesAutcompleteProps> = ({ onSelect, loaded, size
       onSelect={handleSelect}
       onChange={handleChange}
       disabled={!loaded}
+      defaultValue={address}
+      allowClear
     >
       <Input
+        value={address}
         size={size}
         name="location"
         placeholder="Enter a location"
@@ -71,7 +78,7 @@ const PlacesAutocomplete: FC<PlacesAutcompleteProps> = ({ onSelect, loaded, size
         prefix={<MdOutlinePlace />}
         suffix={
           <Button
-            onClick={() => console.log("clicked!")}
+            onClick={() => console.log('clicked!')}
             icon={<MdMyLocation />}
             type="link"
           />

@@ -56,7 +56,7 @@ const StashpointItem: FC<Record<string, any>> = ({ item, loading }) => {
             }
             {
               item.open_late
-                ? <Tag color="yellow">Open Late</Tag>
+                ? <Tag color="green-inverse">Open Late</Tag>
                 : ''
             }
           </div>
