@@ -1,21 +1,21 @@
 import { FC, ReactNode } from 'react'
-import { Avatar, Card, Rate, Space, Tag, theme, Typography } from "antd"
+import { Avatar, Card, Rate, Space, Tag, theme, Typography } from 'antd'
 import { MdOutlinePlace, MdOutlineLuggage } from 'react-icons/md'
 
 const { Text } = Typography
 
-type IconTextProps = { icon: ReactNode, text: string | ReactNode }
+type IconTextProps = { icon: ReactNode; text: string | ReactNode }
 
 const IconText: FC<IconTextProps> = ({ icon, text }) => {
   const {
     token: { sizeSM },
-  } = theme.useToken();
+  } = theme.useToken()
   return (
     <Space direction="horizontal" size={4} align="center">
-      <div style={{ display: 'flex' }}>
-        {icon}
-      </div>
-      <Text type="secondary" style={{ fontSize: sizeSM }}>{text}</Text>
+      <div style={{ display: 'flex' }}>{icon}</div>
+      <Text type="secondary" style={{ fontSize: sizeSM }}>
+        {text}
+      </Text>
     </Space>
   )
 }
@@ -23,42 +23,38 @@ const IconText: FC<IconTextProps> = ({ icon, text }) => {
 const StashpointItem: FC<Record<string, any>> = ({ item, loading }) => {
   const {
     token: { sizeSM, padding },
-  } = theme.useToken();
+  } = theme.useToken()
   const { photos, pricing_structure: price } = item
   return (
     <Card
       style={{
         width: '100%',
         padding: 0,
-        overflow: 'hidden'
+        overflow: 'hidden',
       }}
       bordered={false}
-      bodyStyle={{ padding: "0" }}
+      bodyStyle={{ padding: '0' }}
       hoverable
       loading={loading}
     >
-
       <Space>
         <div
           style={{
             paddingLeft: padding,
-          }}>
+          }}
+        >
           <Avatar
             size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
             shape="square"
             src={photos[0]}
           />
           <div style={{ marginTop: sizeSM }}>
-            {
-              item.open_twentyopen_twentyfour_seven
-                ? <Tag color="green-inverse">24/7</Tag>
-                : ''
-            }
-            {
-              item.open_late
-                ? <Tag color="green-inverse">Open Late</Tag>
-                : ''
-            }
+            {item.open_twentyopen_twentyfour_seven ? (
+              <Tag color="green-inverse">24/7</Tag>
+            ) : (
+              ''
+            )}
+            {item.open_late ? <Tag color="green">Open Late</Tag> : ''}
           </div>
         </div>
         <Space direction="vertical" style={{ padding: padding }}>
@@ -69,12 +65,16 @@ const StashpointItem: FC<Record<string, any>> = ({ item, loading }) => {
               icon={<MdOutlineLuggage />}
               text={
                 <>
-                  <Text strong style={{
-                    fontSize: sizeSM,
-                  }}>
+                  <Text
+                    strong
+                    style={{
+                      fontSize: sizeSM,
+                    }}
+                  >
                     {item.capacity}
                   </Text>
-                  <span> available space</span></>
+                  <span> available space</span>
+                </>
               }
             />
             {/* <IconText
@@ -89,9 +89,18 @@ const StashpointItem: FC<Record<string, any>> = ({ item, loading }) => {
               }
             /> */}
             <Space size={8}>
-              <Text type="secondary" style={{ fontSize: sizeSM }}>{item.rating}</Text>
-              <Rate style={{ fontSize: sizeSM }} value={item.rating} allowHalf disabled />
-              <Text type="secondary" style={{ fontSize: sizeSM }}>({item.rating_count})</Text>
+              <Text type="secondary" style={{ fontSize: sizeSM }}>
+                {item.rating}
+              </Text>
+              <Rate
+                style={{ fontSize: sizeSM }}
+                value={item.rating}
+                allowHalf
+                disabled
+              />
+              <Text type="secondary" style={{ fontSize: sizeSM }}>
+                ({item.rating_count})
+              </Text>
             </Space>
           </Space>
         </Space>
@@ -107,7 +116,10 @@ const StashpointItem: FC<Record<string, any>> = ({ item, loading }) => {
         <Text strong>
           {price.ccy_symbol}
           {price.first_day_cost / price.ccy_minor_in_major}
-          <Text style={{ fontSize: sizeSM }} type="secondary"> bag/day</Text>
+          <Text style={{ fontSize: sizeSM }} type="secondary">
+            {' '}
+            bag/day
+          </Text>
         </Text>
       </div>
     </Card>

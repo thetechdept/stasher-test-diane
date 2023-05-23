@@ -156,7 +156,9 @@ const SearchForm: FC<SearchFormProps> = ({ size, isMapLoaded }) => {
             size={size}
             type="primary"
             htmlType="submit"
-            // onClick={}
+            style={{
+              height: smallForm ? 40 : 'auto',
+            }}
           >
             <Space align="center">
               <Text

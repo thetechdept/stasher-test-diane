@@ -25,7 +25,7 @@ const Stashpoints: FC<{ isMapLoaded: boolean }> = ({ isMapLoaded }) => {
   const [totalItems, setTotalItems] = useState(0)
   const [address, setAddress] = useState<string>()
 
-  const [showFilters, setShowFilters] = useState(true)
+  const [showFilters, setShowFilters] = useState(false)
 
   const {
     token: { colorTextBase, colorBgContainer, sizeSM },
@@ -100,11 +100,10 @@ const Stashpoints: FC<{ isMapLoaded: boolean }> = ({ isMapLoaded }) => {
               </Space>
               <div style={{ display: 'flex' }}>
                 <Button
-                  size="small"
+                  type="link"
+                  icon={<MdFilterList size={24} color={colorTextBase} />}
                   onClick={() => setShowFilters((prev) => !prev)}
-                >
-                  <MdFilterList />
-                </Button>
+                />
               </div>
             </Space>
             {showFilters && (
